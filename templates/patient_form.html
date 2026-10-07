@@ -1,0 +1,17 @@
+{% extends 'base.html' %}{% block title %}{{ 'Edit' if patient else 'Register' }} Patient | SmartCare{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{{ 'Update patient' if patient else 'Register a patient' }}</h1><p>Fields marked * are required</p></div></div>
+<form method="post" class="panel form-grid">
+{% set fields = [
+('patient_number','Patient number *','text','8 digits'),('id_number','South African ID number *','text','13 digits'),
+('first_name','First name *','text',''),('last_name','Last name *','text',''),('date_of_birth','Date of birth *','date',''),
+('contact_number','Contact number *','tel',''),('email','Email address *','email',''),('residential_address','Residential address *','text',''),
+('medical_aid_provider','Medical aid provider','text',''),('medical_aid_number','Medical aid number','text',''),
+('emergency_contact','Emergency contact name *','text',''),('emergency_contact_phone','Emergency contact phone','tel',''),
+('blood_type','Blood type','text','e.g. O+'),('allergies','Allergies','text',''),('chronic_conditions','Chronic conditions','text',''),
+('preferred_language','Preferred language','text',''),('next_of_kin_relationship','Next-of-kin relationship','text','') ] %}
+{% for name,label,type,placeholder in fields %}<label>{{ label }}<input name="{{ name }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ request.form.get(name, patient[name] if patient and patient[name] else '') }}" {% if '*' in label %}required{% endif %}></label>{% endfor %}
+<label>Gender *<select name="gender" required><option value="">Select gender</option>{% for option in ['Female','Male','Non-binary','Prefer not to say'] %}<option {% if request.form.get('gender', patient.gender if patient else '') == option %}selected{% endif %}>{{ option }}</option>{% endfor %}</select></label>
+<div class="form-actions"><a class="button secondary" href="{{ url_for('patients') }}">Cancel</a><button>{{ 'Save changes' if patient else 'Register patient' }}</button></div>
+</form>{% endblock %}
+

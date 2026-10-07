@@ -1,0 +1,15 @@
+{% extends 'base.html' %}{% block title %}Dashboard | SmartCare{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Clinic Dashboard</h1><p>Overview of SmartCare clinic activity</p></div><a class="button" href="{{ url_for('book_appointment') }}">+ Book appointment</a></div>
+<section class="stats">
+  <article><span>Registered patients</span><strong>{{ totals.patients }}</strong></article>
+  <article><span>Doctors</span><strong>{{ totals.doctors }}</strong></article>
+  <article><span>Total appointments</span><strong>{{ totals.appointments }}</strong></article>
+  <article><span>Upcoming</span><strong>{{ totals.upcoming }}</strong></article>
+</section>
+<section class="panel"><div class="panel-head"><h2>Appointment schedule</h2><a href="{{ url_for('appointments') }}">View all</a></div>
+{% if appointments %}<div class="table-wrap"><table><thead><tr><th>Number</th><th>Date & time</th><th>Patient</th><th>Doctor</th><th>Status</th></tr></thead><tbody>
+{% for a in appointments %}<tr><td>{{ a.appointment_number }}</td><td>{{ a.appointment_date }} · {{ a.appointment_time }}</td><td>{{ a.patient_name }}<small>{{ a.patient_number }}</small></td><td>{{ a.doctor_name }}</td><td><span class="status {{ a.status|lower }}">{{ a.status }}</span></td></tr>{% endfor %}
+</tbody></table></div>{% else %}<div class="empty"><h3>No appointments yet</h3><p>Book the clinic's first appointment.</p></div>{% endif %}</section>
+{% endblock %}
+

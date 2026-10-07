@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block title %}Appointments | SmartCare{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Appointments</h1><p>View appointment history and update progress</p></div><a class="button" href="{{ url_for('book_appointment') }}">+ Book appointment</a></div>
+<section class="panel"><div class="table-wrap"><table><thead><tr><th>Number</th><th>Date & time</th><th>Patient</th><th>Doctor</th><th>Notes</th><th>Status</th></tr></thead><tbody>
+{% for a in appointments %}<tr><td>{{ a.appointment_number }}</td><td>{{ a.appointment_date }}<small>{{ a.appointment_time }}</small></td><td>{{ a.patient_name }}<small>{{ a.patient_number }}</small></td><td>{{ a.doctor_name }}</td><td>{{ a.notes or '—' }}</td><td><form method="post" action="{{ url_for('update_appointment_status', appointment_id=a.appointment_id) }}"><select name="status" onchange="this.form.submit()">{% for s in ['Scheduled','Confirmed','Completed','Cancelled','No-show'] %}<option {% if a.status==s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></form></td></tr>
+{% else %}<tr><td colspan="6" class="empty">No appointments have been booked.</td></tr>{% endfor %}</tbody></table></div></section>{% endblock %}
+

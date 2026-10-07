@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block title %}Doctors | SmartCare{% endblock %}
+{% block content %}<div class="page-head"><div><h1>Doctors</h1><p>Clinic medical team</p></div></div><section class="doctor-grid">{% for d in doctors %}<article class="doctor-card"><div class="avatar">{{ d.full_name.split()[-1][0] }}</div><h2>{{ d.full_name }}</h2><p>{{ d.specialisation }}</p><small>{{ d.phone_number }}<br>{{ d.email }}</small></article>{% endfor %}</section>{% endblock %}
+

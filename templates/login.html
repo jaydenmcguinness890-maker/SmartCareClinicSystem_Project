@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% block title %}Login | SmartCare{% endblock %}
+{% block content %}
+<section class="login-card">
+  <div class="login-logo">+</div><h1>SmartCare</h1><p>Medical Clinic Appointment Management</p>
+  <form method="post">
+    <label>Username<input name="username" autocomplete="username" required autofocus></label>
+    <label>Password<input type="password" name="password" autocomplete="current-password" required></label>
+    <button type="submit">Secure Login</button>
+  </form>
+  <div class="demo"><strong>Demonstration account</strong><br>Username: admin &nbsp; Password: SmartCare123!</div>
+</section>
+{% endblock %}
+

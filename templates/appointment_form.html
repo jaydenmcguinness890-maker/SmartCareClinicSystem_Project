@@ -1,0 +1,14 @@
+{% extends 'base.html' %}{% block title %}Book Appointment | SmartCare{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Book appointment</h1><p>Assign a patient to an available doctor and time</p></div></div>
+<form method="post" class="panel form-grid compact">
+<label>Appointment number *<input name="appointment_number" placeholder="e.g. APT-1001" value="{{ request.form.get('appointment_number','') }}" required></label>
+<label>Patient *<select name="patient_id" required><option value="">Select patient</option>{% for p in patients %}<option value="{{ p.patient_id }}" {% if request.form.get('patient_id') == p.patient_id|string %}selected{% endif %}>{{ p.patient_number }} — {{ p.first_name }} {{ p.last_name }}</option>{% endfor %}</select></label>
+<label>Doctor *<select name="doctor_id" required><option value="">Select doctor</option>{% for d in doctors %}<option value="{{ d.doctor_id }}" {% if request.form.get('doctor_id') == d.doctor_id|string %}selected{% endif %}>{{ d.full_name }} — {{ d.specialisation }}</option>{% endfor %}</select></label>
+<label>Appointment date *<input type="date" min="{{ today }}" name="appointment_date" value="{{ request.form.get('appointment_date','') }}" required></label>
+<label>Appointment time *<input type="time" name="appointment_time" value="{{ request.form.get('appointment_time','') }}" required></label>
+<label>Status *<select name="status"><option>Scheduled</option><option>Confirmed</option></select></label>
+<label class="full">Notes<textarea name="notes" rows="4" placeholder="Reason for visit or relevant notes">{{ request.form.get('notes','') }}</textarea></label>
+<div class="form-actions"><a class="button secondary" href="{{ url_for('appointments') }}">Cancel</a><button>Save appointment</button></div>
+</form>{% endblock %}
+

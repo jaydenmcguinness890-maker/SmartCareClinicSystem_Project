@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block title %}Patients | SmartCare{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Patients</h1><p>Register, find and update patient records</p></div><a class="button" href="{{ url_for('register_patient') }}">+ Register patient</a></div>
+<form class="search"><input name="q" value="{{ query }}" placeholder="Search by patient number, name or ID"><button>Search</button></form>
+<section class="panel"><div class="table-wrap"><table><thead><tr><th>Patient no.</th><th>Name</th><th>ID number</th><th>Contact</th><th>Registered</th><th></th></tr></thead><tbody>
+{% for p in patients %}<tr><td>{{ p.patient_number }}</td><td>{{ p.first_name }} {{ p.last_name }}<small>{{ p.gender }} · {{ p.date_of_birth }}</small></td><td>{{ p.id_number }}</td><td>{{ p.contact_number }}<small>{{ p.email }}</small></td><td>{{ p.registration_date }}</td><td><a href="{{ url_for('edit_patient', patient_id=p.patient_id) }}">Edit</a></td></tr>
+{% else %}<tr><td colspan="6" class="empty">No matching patients found.</td></tr>{% endfor %}
+</tbody></table></div></section>{% endblock %}
+
